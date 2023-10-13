@@ -11,6 +11,8 @@ subnetAddressPrefix=10.0.0.0/24
 vmName=TEST-VM1
 vmImage=Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest
 AdminUsername=azureuser
+publicIP=TEST-public-ip
+mypublicdns=testvm
 
 echo "creating resource group .." $resourceGroup
 echo "in location .." $location
@@ -25,6 +27,12 @@ az network vnet create \
   --address-prefixes $vnetAddressPrefix \
   --subnet-name $subnetName \
   --subnet-prefixes $subnetAddressPrefix
+
+echo "creating public IP address .."
+az network public-ip create \
+    --resource-group $resourceGroup \
+    --name $publicIP \
+    --dns-name $mypublicdns
 
 echo "creating VM .."
 az vm create \
