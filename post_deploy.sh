@@ -14,4 +14,4 @@ sudo service xrdp restart
 
 #sudo passwd azureuser
 
-sudo apt install firefox
+sudo apt install -y firefox
