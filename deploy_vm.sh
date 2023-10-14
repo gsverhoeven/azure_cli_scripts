@@ -1,6 +1,8 @@
 #!/bin/bash
 #az login
 
+az config set core.display_region_identified=false
+
 # create shell variables
 resourceGroup=myRGtest
 location=westeurope
@@ -15,6 +17,9 @@ publicIP=TEST-public-ip
 mypublicdns=gsverhoeven
 NetworkSecurityGroup=myNSG
 NICName=myNic
+storagetype=StandardSSD_LRS
+vmSize=Standard_DS1_v2
+vmSizealt=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
 
 echo "creating resource group .." $resourceGroup
 echo "in location .." $location
@@ -89,25 +94,27 @@ echo "creating VM .."
 az vm create \
   --resource-group $resourceGroup \
   --name $vmName \
-  --vnet-name $vnetName \
-  --subnet $subnetName \
+  --nics $NICName \
   --image $vmImage \
+  --storage-sku $storagetype \
+  --size $vmSize \
   --admin-username $AdminUsername \
-  --generate-ssh-keys \
-  --public-ip-sku Standard
+  --generate-ssh-keys
 
 echo "show all created resources within group .."
 az resource list --resource-group myRGtest --output table
 
+echo "installing linux packages .."
+az vm run-command invoke \
+ --resource-group $resourceGroup \
+ --name $vmName \
+ --command-id RunShellScript \
+ --scripts @post_deploy.sh
+
 # # tear it down
-# echo "deleting virtual network .."
-# az network vnet delete \
-#   --name $vnetName \
-#   --resource-group $resourceGroup
-# 
-# 
-echo "deleting resource group .." $resourceGroup
-az group delete --name $resourceGroup --yes
+
+# echo "deleting resource group .." $resourceGroup
+# az group delete --name $resourceGroup --yes
 
 echo "remaining Azure resources in use .."
 az resource list --output table
