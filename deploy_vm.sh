@@ -14,6 +14,7 @@ AdminUsername=azureuser
 publicIP=TEST-public-ip
 mypublicdns=gsverhoeven
 NetworkSecurityGroup=myNSG
+NICName=myNic
 
 echo "creating resource group .." $resourceGroup
 echo "in location .." $location
@@ -74,6 +75,16 @@ az network nsg rule list \
     --nsg-name $NetworkSecurityGroup \
     --output table
 
+echo "create NIC .."
+
+az network nic create \
+    --resource-group $resourceGroup \
+    --name $NICName \
+    --vnet-name $vnetName \
+    --subnet $subnetName \
+    --public-ip-address $publicIP \
+    --network-security-group $NetworkSecurityGroup
+
 echo "creating VM .."
 az vm create \
   --resource-group $resourceGroup \
@@ -97,3 +108,6 @@ az resource list --resource-group myRGtest --output table
 # 
 echo "deleting resource group .." $resourceGroup
 az group delete --name $resourceGroup --yes
+
+echo "remaining Azure resources in use .."
+az resource list --output table
