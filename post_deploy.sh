@@ -1,17 +1,20 @@
 #!/bin/bash
  
-sudo apt install net-tools
-sudo apt-get update 
-sudo apt install -y inxi
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xfce4
-sudo apt install -y xfce4-session
+# BASIC TOOLING
+sudo apt update 
+sudo apt install -y net-tools inxi
 
-sudo apt-get -y install xrdp
+# XFCE & XRDP
+sudo DEBIAN_FRONTEND=noninteractive apt -y install xfce4
+sudo apt install -y xfce4-session
+sudo apt -y install xrdp
 sudo systemctl enable xrdp
 sudo adduser xrdp ssl-cert
 echo xfce4-session >~/.xsession
 sudo service xrdp restart
 
-#sudo passwd azureuser
-
+# FIREFOX
 sudo apt install -y firefox
+
+
+#sudo passwd azureuser
