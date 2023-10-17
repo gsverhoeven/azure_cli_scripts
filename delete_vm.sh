@@ -25,5 +25,8 @@ vmSizealt=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
 echo "deleting resource group .." $resourceGroup
 az group delete --name $resourceGroup --yes
 
+echo "remove VM from known_hosts .."
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "$mypublicdns.westeurope.cloudapp.azure.com"
+
 echo "remaining Azure resources in use .."
 az resource list --output table
