@@ -20,7 +20,7 @@ NICName=myNic
 storagetype=StandardSSD_LRS
 vmSize=Standard_DS1_v2
 vmSizealt=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
-customDataScript=post_deploy.sh
+customDataScript=cloud_init.sh
 
 echo "creating resource group .." $resourceGroup
 echo "in location .." $location
@@ -106,10 +106,3 @@ az vm create \
 echo "show all created resources within group .."
 az resource list --resource-group $resourceGroup \
   --output table
-
-# echo "running post provisioning script .."
-# az vm run-command invoke \
-#  --resource-group $resourceGroup \
-#  --name $vmName \
-#  --command-id RunShellScript \
-#  --scripts @post_deploy.sh
