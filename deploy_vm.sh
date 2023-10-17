@@ -20,6 +20,7 @@ NICName=myNic
 storagetype=StandardSSD_LRS
 vmSize=Standard_DS1_v2
 vmSizealt=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
+customDataScript=post_deploy.sh
 
 echo "creating resource group .." $resourceGroup
 echo "in location .." $location
@@ -99,22 +100,16 @@ az vm create \
   --storage-sku $storagetype \
   --size $vmSize \
   --admin-username $AdminUsername \
+  --custom-data $customDataScript \
   --generate-ssh-keys
 
 echo "show all created resources within group .."
-az resource list --resource-group myRGtest --output table
+az resource list --resource-group $resourceGroup \
+  --output table
 
-echo "installing linux packages .."
-az vm run-command invoke \
- --resource-group $resourceGroup \
- --name $vmName \
- --command-id RunShellScript \
- --scripts @post_deploy.sh
-
-# # tear it down
-
-# echo "deleting resource group .." $resourceGroup
-# az group delete --name $resourceGroup --yes
-
-echo "remaining Azure resources in use .."
-az resource list --output table
+# echo "running post provisioning script .."
+# az vm run-command invoke \
+#  --resource-group $resourceGroup \
+#  --name $vmName \
+#  --command-id RunShellScript \
+#  --scripts @post_deploy.sh
