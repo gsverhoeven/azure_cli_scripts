@@ -41,7 +41,8 @@ az network public-ip create \
     --resource-group $resourceGroup \
     --name $publicIP \
     --sku standard \
-    --dns-name $mypublicdns
+    --dns-name $mypublicdns \
+    --zone 1 # non-zonal IP
 
 echo "list all ip adresses .."
 az network public-ip list -o table
@@ -101,7 +102,8 @@ az vm create \
   --size $vmSize \
   --admin-username $AdminUsername \
   --custom-data $customDataScript \
-  --generate-ssh-keys
+  --generate-ssh-keys \
+  --security-type Standard # no trusted launch
 
 echo "show all created resources within group .."
 az resource list --resource-group $resourceGroup \
