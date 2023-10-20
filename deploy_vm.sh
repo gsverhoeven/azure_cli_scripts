@@ -3,7 +3,7 @@
 
 az config set core.display_region_identified=false
 
-# create shell variables
+# create shell variables # PM move to shared config file
 resourceGroup=myRGtest
 location=westeurope
 vnetName=TEST-VNet

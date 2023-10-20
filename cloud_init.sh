@@ -1,5 +1,6 @@
 #!/bin/bash
- 
+export DEBIAN_FRONTEND=noninteractive
+
 # BASIC TOOLING
 sudo apt-get update 
 sudo apt-get install -y net-tools inxi
