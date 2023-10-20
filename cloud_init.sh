@@ -1,5 +1,6 @@
 #!/bin/bash
 export DEBIAN_FRONTEND=noninteractive
+HOME=/home/azureuser
 
 # BASIC TOOLING
 sudo apt-get update 
@@ -42,7 +43,7 @@ sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_
 sudo apt-get install -y --no-install-recommends r-base
 
 # TIDYVERSE
-sudo apt-get install libssl-dev libcurl4-openssl-dev unixodbc-dev \
+sudo apt-get -y install libssl-dev libcurl4-openssl-dev unixodbc-dev \
 libxml2-dev libmariadb-dev libfontconfig1-dev libharfbuzz-dev \
 libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
@@ -52,7 +53,6 @@ Rscript -e 'install.packages("tidyverse"); install.packages("gapminder")'
 Rscript -e 'remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()'
 
 # RSTUDIO
-HOME=/home/azureuser
 cd $HOME
 mkdir Downloads
 cd Downloads
