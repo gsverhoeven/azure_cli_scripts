@@ -105,9 +105,12 @@ az vm create \
   --generate-ssh-keys \
   --security-type Standard # no trusted launch
 
-# ssh azureuser@gsverhoeven.westeurope.cloudapp.azure.com
-# cat /var/log/cloud-init-output.log
-
 echo "show all created resources within group .."
 az resource list --resource-group $resourceGroup \
   --output table
+
+echo "to connect to VM:"
+echo "ssh azureuser@gsverhoeven.westeurope.cloudapp.azure.com"
+
+echo "to check on status cloud-init:"
+echo "cat /var/log/cloud-init-output.log"
