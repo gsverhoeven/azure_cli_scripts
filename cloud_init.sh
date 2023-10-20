@@ -14,8 +14,8 @@ echo xfce4-session >~/.xsession
 sudo service xrdp restart
 
 # C BUILD TOOLS
-sudo apt-get install make
-sudo apt-get install g++
+sudo apt-get -y install make
+sudo apt-get -y install g++
 
 # FIREFOX
 sudo apt-get install -y firefox
@@ -35,10 +35,10 @@ make examples/bernoulli/bernoulli
 #examples/bernoulli/bernoulli sample data file=examples/bernoulli/bernoulli.data.json
 
 # R
-sudo apt-get install --no-install-recommends software-properties-common dirmngr
+sudo apt-get install -y --no-install-recommends software-properties-common dirmngr
 wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
-sudo apt-get install --no-install-recommends r-base
+sudo apt-get install -y --no-install-recommends r-base
 
 # TIDYVERSE
 sudo apt-get install libssl-dev libcurl4-openssl-dev unixodbc-dev \
@@ -51,11 +51,12 @@ Rscript -e 'install.packages("tidyverse"); install.packages("gapminder")'
 Rscript -e 'remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()'
 
 # RSTUDIO
+HOME=/home/azureuser
 cd $HOME
 mkdir Downloads
 cd Downloads
 RSTUDIO_FILE=rstudio-2023.09.1-494-amd64.deb
-wget -qO- https://download1.rstudio.org/electron/jammy/amd64/$RSTUDIO_FILE
+wget -q https://download1.rstudio.org/electron/jammy/amd64/$RSTUDIO_FILE
 sudo apt-get -y install gdebi-core 
 sudo gdebi $RSTUDIO_FILE
 
