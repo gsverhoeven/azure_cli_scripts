@@ -2,6 +2,8 @@
 export DEBIAN_FRONTEND=noninteractive
 HOME=/home/azureuser
 
+sudo dpkg-reconfigure debconf --frontend=noninteractive
+
 # BASIC TOOLING
 sudo apt-get update 
 sudo apt-get install -y net-tools inxi
@@ -24,13 +26,13 @@ sudo apt-get install -y firefox
 
 # CMDSTAN
 cd $HOME
-mkdir Github
+mkdir Github # PM chown to azureuser /azureuser
 cd Github
-mkdir stan-dev
+mkdir stan-dev # PM chown to azureuser /azureuser
 cd stan-dev
 git clone https://github.com/stan-dev/cmdstan.git --recursive
 cd cmdstan/
-make build
+make build # PM test this on VM, check why it errors out
 make examples/bernoulli/bernoulli
 
 # TEST STAN
@@ -54,11 +56,12 @@ Rscript -e 'remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()'
 
 # RSTUDIO
 cd $HOME
-mkdir Downloads
+mkdir Downloads # PM chown to azureuser /azureuser
 cd Downloads
 RSTUDIO_FILE=rstudio-2023.09.1-494-amd64.deb
-wget -q https://download1.rstudio.org/electron/jammy/amd64/$RSTUDIO_FILE
+wget -q https://download1.rstudio.org/electron/focal/amd64/$RSTUDIO_FILE
 sudo apt-get -y install gdebi-core 
-sudo gdebi $RSTUDIO_FILE
+sudo gdebi -n $RSTUDIO_FILE
 
-#sudo passwd azureuser
+# set debconf back to default
+sudo dpkg-reconfigure debconf --frontend=dialog
