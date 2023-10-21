@@ -18,8 +18,9 @@ mypublicdns=gsverhoeven
 NetworkSecurityGroup=myNSG
 NICName=myNic
 storagetype=StandardSSD_LRS
-vmSize=Standard_DS1_v2
-vmSizealt=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
+#vmSize=Standard_DS1_v2 # (1 vcpu, 3.5 gb mem, cloudinit takes 2 h)
+#vmSize=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
+vmSize=Standard_D8_v3 # 8CPU 32GB (cloudninit takes 30 min)
 customDataScript=cloud_init.sh
 
 echo "creating resource group .." $resourceGroup
@@ -112,5 +113,9 @@ az resource list --resource-group $resourceGroup \
 echo "to connect to VM:"
 echo "ssh azureuser@gsverhoeven.westeurope.cloudapp.azure.com"
 
+echo "then set pwd on azureuser"
+
 echo "to check on status cloud-init:"
 echo "cat /var/log/cloud-init-output.log"
+
+#sudo passwd azureuser # PM set this to pwd from keepass, figure out a secure way, needed for RDP access
