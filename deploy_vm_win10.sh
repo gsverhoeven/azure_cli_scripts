@@ -106,6 +106,8 @@ az vm create \
   --generate-ssh-keys \
   --security-type Standard # no trusted launch
 
+#  --admin-username azureuser
+#  --admin-password $mysecretpwd
 #  --custom-data $customDataScript \
 
 echo "show all created resources within group .."
@@ -115,7 +117,9 @@ az resource list --resource-group $resourceGroup \
 echo "to connect to VM:"
 echo "ssh azureuser@gsverhoeven.westeurope.cloudapp.azure.com"
 
-echo "then set pwd on azureuser"
+#echo "then set pwd on azureuser"
+
+echo "az group delete --name win10test --yes"
 
 #echo "to check on status cloud-init:"
 #echo "cat /var/log/cloud-init-output.log"
