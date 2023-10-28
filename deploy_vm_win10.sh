@@ -3,26 +3,7 @@
 
 az config set core.display_region_identified=false
 
-# create shell variables # PM move to shared config file
-resourceGroup=win10test
-location=westeurope
-vnetName=TEST-VNet
-subnetName=TEST-Subnet
-vnetAddressPrefix=10.0.0.0/16
-subnetAddressPrefix=10.0.0.0/24
-vmName=win10test_vm1
-#vmImage=Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest
-vmImage=MicrosoftWindowsDesktop:Windows-10:win10-22h2-pro:19045.3570.231001
-AdminUsername=azureuser
-publicIP=TEST-public-ip
-mypublicdns=gsverhoeven
-NetworkSecurityGroup=myNSG
-NICName=myNic
-storagetype=StandardSSD_LRS
-#vmSize=Standard_DS1_v2 # (1 vcpu, 3.5 gb mem, cloudinit takes 2 h)
-#vmSize=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
-vmSize=Standard_D8_v3 # 8CPU 32GB (cloudninit takes 30 min)
-#customDataScript=cloud_init.sh
+source ./azure_config_win10.sh
 
 echo "creating resource group .." $resourceGroup
 echo "in location .." $location
