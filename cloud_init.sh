@@ -64,4 +64,4 @@ sudo apt-get -y install gdebi-core
 sudo gdebi -n $RSTUDIO_FILE
 
 # set debconf back to default
-sudo dpkg-reconfigure debconf --frontend=dialog
+# sudo dpkg-reconfigure debconf --frontend=dialog
