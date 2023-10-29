@@ -55,8 +55,8 @@ az network nsg rule create \
     --protocol tcp \
     --priority 1001 \
     --destination-port-range 3389 \
-    --access allow
-#--source-address-prefixes TRUSTED-IP-ADDRESS/32
+    --access allow \
+    --source-address-prefixes $trustedIPAdress
 
 echo "check NSG rules .."
 az network nsg rule list \

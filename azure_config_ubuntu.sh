@@ -5,6 +5,7 @@ export vnetName=TEST-VNet
 export subnetName=TEST-Subnet
 export vnetAddressPrefix=10.0.0.0/16
 export subnetAddressPrefix=10.0.0.0/24
+export trustedIPAdress=77.248.168.82
 export vmName=TEST-VM1
 export vmImage=Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest
 export AdminUsername=azureuser
