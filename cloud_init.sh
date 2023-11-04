@@ -8,6 +8,9 @@ sudo dpkg-reconfigure debconf --frontend=noninteractive
 sudo apt-get update 
 sudo apt-get install -y net-tools inxi
 
+# FAIL2BAN
+sudo apt-get install -y fail2ban
+
 # XFCE & XRDP
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xfce4
 sudo apt-get install -y xfce4-session
@@ -65,3 +68,9 @@ sudo gdebi -n $RSTUDIO_FILE
 
 # set debconf back to default
 # sudo dpkg-reconfigure debconf --frontend=dialog
+
+# upgrade packages
+sudo apt-get upgrade -y
+
+# RESTART SYSTEM
+sudo reboot
