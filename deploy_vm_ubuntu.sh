@@ -6,7 +6,12 @@ source ./azure_config_ubuntu.sh
 
 echo "creating resource group .." $resourceGroup
 echo "in location .." $location
-az group create --name $resourceGroup --location $location
+
+az group create \
+  --name $resourceGroup \
+  --location $location \
+  --output $azOutput
+  
 #echo "show resource group:"
 #az group show --resource-group $resourceGroup
 
@@ -16,7 +21,8 @@ az network vnet create \
   --resource-group $resourceGroup \
   --address-prefixes $vnetAddressPrefix \
   --subnet-name $subnetName \
-  --subnet-prefixes $subnetAddressPrefix
+  --subnet-prefixes $subnetAddressPrefix \
+  --output $azOutput
 
 echo "creating public IP address .."
 az network public-ip create \
@@ -24,6 +30,7 @@ az network public-ip create \
     --name $publicIP \
     --sku standard \
     --dns-name $mypublicdns \
+    --output $azOutput \
     --zone 1 # non-zonal IP
 
 echo "list all ip adresses .."
@@ -32,7 +39,8 @@ az network public-ip list -o table
 echo "creating Network Security Group .."
 az network nsg create \
     --resource-group $resourceGroup \
-    --name $NetworkSecurityGroup
+    --name $NetworkSecurityGroup \
+    --output $azOutput
 
 echo "create SSH rule .."
 az network nsg rule create \
@@ -43,7 +51,8 @@ az network nsg rule create \
     --protocol tcp \
     --priority 1000 \
     --destination-port-range 22 \
-    --access allow
+    --access allow \
+    --output $azOutput
 
 echo "create RDP rule .."
 az network nsg rule create \
@@ -56,6 +65,7 @@ az network nsg rule create \
     --priority 1001 \
     --destination-port-range 3389 \
     --access allow \
+    --output $azOutput \
     --source-address-prefixes $trustedIPAdress
 
 echo "check NSG rules .."
@@ -72,6 +82,7 @@ az network nic create \
     --vnet-name $vnetName \
     --subnet $subnetName \
     --public-ip-address $publicIP \
+    --output $azOutput \
     --network-security-group $NetworkSecurityGroup
 
 echo "creating VM .."
@@ -85,6 +96,7 @@ az vm create \
   --admin-username $AdminUsername \
   --custom-data $customDataScript \
   --generate-ssh-keys \
+  --output $azOutput \
   --security-type Standard # no trusted launch
 
 echo "show all created resources within group .."
