@@ -14,7 +14,13 @@ sudo apt-get install -y fail2ban
 # XFCE & XRDP
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xfce4
 sudo apt-get install -y xfce4-session
+
 sudo apt-get -y install xrdp
+
+# remove thinclient_drive
+sudo sed -i -e '/allow_channels=/ s/=.*/=false/' /etc/xrdp/xrdp.ini
+sudo rmdir $HOME/thinclient_drives
+
 sudo systemctl enable xrdp
 sudo adduser xrdp ssl-cert
 echo xfce4-session >~/.xsession
