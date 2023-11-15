@@ -11,9 +11,6 @@ az group create \
   --name $resourceGroup \
   --location $location \
   --output $azOutput
-  
-#echo "show resource group:"
-#az group show --resource-group $resourceGroup
 
 echo "creating virtual network .."
 az network vnet create \
@@ -75,7 +72,6 @@ az network nsg rule list \
     --output table
 
 echo "create NIC .."
-
 az network nic create \
     --resource-group $resourceGroup \
     --name $NICName \
@@ -103,6 +99,12 @@ echo "show all created resources within group .."
 az resource list --resource-group $resourceGroup \
   --output table
 
+echo "fetching public ssh keys from VM.."
+ssh-keyscan -H $mypublicdns.westeurope.cloudapp.azure.com >> ~/.ssh/known_hosts
+
+echo "fetching cloud-init output.."
+scp $AdminUsername@$mypublicdns.westeurope.cloudapp.azure.com:/var/log/cloud-init-output.log .
+
 echo "to connect to VM:"
 echo "ssh azureuser@gsverhoeven.westeurope.cloudapp.azure.com"
 
@@ -110,5 +112,6 @@ echo "then set pwd on azureuser"
 
 echo "to check on status cloud-init:"
 echo "cat /var/log/cloud-init-output.log"
+
 
 #sudo passwd azureuser # PM set this to pwd from keepass, figure out a secure way, needed for RDP access

@@ -72,6 +72,9 @@ wget -q https://download1.rstudio.org/electron/focal/amd64/$RSTUDIO_FILE
 sudo apt-get -y install gdebi-core 
 sudo gdebi -n $RSTUDIO_FILE
 
+# CLONE RSTAN scripts from github
+# PM how to authenticate
+
 # set debconf back to default
 # sudo dpkg-reconfigure debconf --frontend=dialog
 
