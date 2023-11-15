@@ -1,0 +1,30 @@
+#cloud-config
+
+users:
+- default
+- name: stanuser
+  groups: stanuser
+  shell: /bin/bash
+  sudo: ['ALL=(ALL) NOPASSWD:ALL']
+  ssh-authorized-keys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTZw4TKc3uohUlQpCJ467m2mZvdQ8XyQ/B7sxxcB8krXRdw+r0AEB1MMHAndpafS5Ya33oO4fzSxgbAyYWxJ8qVpnNu2/qI0CByk41KR4D7teZOLheOPKBMW0OASFAZcFnGI6Rp9yqwip2g4Xvf8596mN+cx+L4dbd13Ex+6aDqP7gsT1tPkj/514pLl5CBkE+s/R/Ok8FOnANIIHYoLtYZna8OQsnvi6nFa5U0o5AxtACm/GsvmzEGi39c0uSLUsanK+4avGdFVNpGTgnjgvM1lFLSvyapIZCHcGm9f9Q7Qk5Mesip8qvhS8SQcV1Uh2cXziRz6zsB+fcqdUAr1zx
+
+package_update: true
+
+package_upgrade: true
+
+# Install additional packages on first boot
+#
+# Default: none
+#
+# if packages are specified, then package_update will be set to true
+#
+# packages may be supplied as a single package name or as a list
+# with the format [<package>, <version>] wherein the specific
+# package version will be installed.
+
+packages:
+ - net-tools 
+ - inxi
+
+#add write_files to combine with script, then do run_cmd

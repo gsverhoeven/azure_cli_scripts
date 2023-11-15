@@ -18,4 +18,5 @@ export azOutput=yaml # json
 #export vmSize=Standard_DS1_v2 # (1 vcpu, 3.5 gb mem, cloudinit takes 2 h)
 export vmSize=Standard_D2s_v3 #(2 vcpus, 8 GiB memory)
 #export vmSize=Standard_D8_v3 # 8CPU 32GB (cloudninit takes 30 min)
-export customDataScript=cloud_init.sh
+#export customDataScript=cloud_init.sh
+export customDataScript=cloud_init_cfg.yaml
