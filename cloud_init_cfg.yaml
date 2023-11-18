@@ -1,17 +1,21 @@
 #cloud-config
+system_info:
+  default_user:
+    name: stanuser
+    home: /home/stanuser
+#     lock_passd: false
+#    ssh-authorized-keys:
+#      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTZw4TKc3uohUlQpCJ467m2mZvdQ8XyQ/B7sxxcB8krXRdw+r0AEB1MMHAndpafS5Ya33oO4fzSxgbAyYWxJ8qVpnNu2/qI0CByk41KR4D7teZOLheOPKBMW0OASFAZcFnGI6Rp9yqwip2g4Xvf8596mN+cx+L4dbd13Ex+6aDqP7gsT1tPkj/514pLl5CBkE+s/R/Ok8FOnANIIHYoLtYZna8OQsnvi6nFa5U0o5AxtACm/GsvmzEGi39c0uSLUsanK+4avGdFVNpGTgnjgvM1lFLSvyapIZCHcGm9f9Q7Qk5Mesip8qvhS8SQcV1Uh2cXziRz6zsB+fcqdUAr1zx
 
-users:
-- default
-- name: stanuser
-  groups: stanuser
-  shell: /bin/bash
-  sudo: ['ALL=(ALL) NOPASSWD:ALL']
-  ssh-authorized-keys:
-    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTZw4TKc3uohUlQpCJ467m2mZvdQ8XyQ/B7sxxcB8krXRdw+r0AEB1MMHAndpafS5Ya33oO4fzSxgbAyYWxJ8qVpnNu2/qI0CByk41KR4D7teZOLheOPKBMW0OASFAZcFnGI6Rp9yqwip2g4Xvf8596mN+cx+L4dbd13Ex+6aDqP7gsT1tPkj/514pLl5CBkE+s/R/Ok8FOnANIIHYoLtYZna8OQsnvi6nFa5U0o5AxtACm/GsvmzEGi39c0uSLUsanK+4avGdFVNpGTgnjgvM1lFLSvyapIZCHcGm9f9Q7Qk5Mesip8qvhS8SQcV1Uh2cXziRz6zsB+fcqdUAr1zx
+password: $6$rounds=4096$RGAOg9ZK5bFrW9lk$KluIuaLdgKIsJWmhMvDhj/8Qu4V6KM8RUl4vT9y4Enhxw4DGb7O2KsgCqXOpLNngA9uTHSrVI7FK.52m1cfio1
+chpasswd: { expire: False }
+hostname: myjammy
 
-package_update: true
+# configure sshd to allow users logging in using password 
+# rather than just keys
+ssh_pwauth: True
 
-package_upgrade: true
+package_upgrade: false
 
 # Install additional packages on first boot
 #
@@ -23,8 +27,17 @@ package_upgrade: true
 # with the format [<package>, <version>] wherein the specific
 # package version will be installed.
 
-packages:
- - net-tools 
- - inxi
+# packages:
+#  - net-tools
+#  - inxi
 
-#add write_files to combine with script, then do run_cmd
+write_files:
+  # not writing to /tmp
+  - path: /run/mycoolscript
+    permissions: "0755"
+    content: |
+      #!/bin/bash
+      touch testfile
+runcmd:
+  - mkdir /run/mycooldir # owner root
+  - source /run/mycoolscript

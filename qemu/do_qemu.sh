@@ -1,7 +1,9 @@
 #!/bin/bash
 
 rm jammy-server-cloudimg-amd64.img
-wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+#wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+#cp jammy-server-cloudimg-amd64.img jammy-server-cloudimg-amd64.img.fresh
+cp jammy-server-cloudimg-amd64.img.fresh jammy-server-cloudimg-amd64.img
 qemu-img info jammy-server-cloudimg-amd64.img 
 # 2.2 GB
 qemu-img resize jammy-server-cloudimg-amd64.img 30G
