@@ -11,9 +11,10 @@ password: $6$rounds=4096$RGAOg9ZK5bFrW9lk$KluIuaLdgKIsJWmhMvDhj/8Qu4V6KM8RUl4vT9
 chpasswd: { expire: False }
 hostname: myjammy
 
-# configure sshd to allow users logging in using password 
+# configure sshd to disallow users logging in using password 
 # rather than just keys
-ssh_pwauth: True
+# local terminal login works if set false
+ssh_pwauth: false
 
 package_upgrade: false
 
