@@ -33,11 +33,11 @@ package_upgrade: false
 
 write_files:
   # not writing to /tmp
-  - path: /run/mycoolscript
+  - path: /home/stanuser/mycoolscript.sh
     permissions: "0755"
     content: |
       #!/bin/bash
       touch testfile
 runcmd:
   - mkdir /run/mycooldir # owner root
-  - source /run/mycoolscript
+  - [bash, /home/stanuser/mycoolscript.sh ]
