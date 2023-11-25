@@ -103,12 +103,10 @@ echo "fetching public ssh keys from VM.."
 ssh-keyscan -H $mypublicdns.westeurope.cloudapp.azure.com >> ~/.ssh/known_hosts
 
 echo "fetching cloud-init output.."
-scp $AdminUsername@$mypublicdns.westeurope.cloudapp.azure.com:/var/log/cloud-init-output.log .
+scp $AdminUsername@$mypublicdns.$location.cloudapp.azure.com:/var/log/cloud-init-output.log .
 
 echo "to connect to VM:"
-echo "ssh azureuser@gsverhoeven.westeurope.cloudapp.azure.com"
-
-echo "then set pwd on azureuser"
+echo "ssh $AdminUsername@$mypublicdns.$location.cloudapp.azure.com"
 
 echo "to check on status cloud-init:"
 echo "cat /var/log/cloud-init-output.log"
