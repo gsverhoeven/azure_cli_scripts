@@ -1,12 +1,12 @@
 #!/bin/bash
-export DEBIAN_FRONTEND=noninteractive
-HOME=/home/azureuser
+#export DEBIAN_FRONTEND=noninteractive
+#HOME=/home/azureuser
 
-sudo dpkg-reconfigure debconf --frontend=noninteractive
+#sudo dpkg-reconfigure debconf --frontend=noninteractive
 
 # BASIC TOOLING
-sudo apt-get update 
-sudo apt-get install -y net-tools inxi
+#sudo apt-get update 
+#sudo apt-get install -y net-tools inxi
 
 # FAIL2BAN
 sudo apt-get install -y fail2ban

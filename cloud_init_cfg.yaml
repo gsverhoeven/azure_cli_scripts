@@ -28,9 +28,9 @@ package_upgrade: false
 # with the format [<package>, <version>] wherein the specific
 # package version will be installed.
 
-# packages:
-#  - net-tools
-#  - inxi
+packages:
+  - net-tools
+  - inxi
 
 write_files:
   # not writing to /tmp
