@@ -9,13 +9,13 @@
 #sudo apt-get install -y net-tools inxi
 
 # FAIL2BAN
-sudo apt-get install -y fail2ban
+#sudo apt-get install -y fail2ban
 
 # XFCE & XRDP
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xfce4
-sudo apt-get install -y xfce4-session
+#sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xfce4
+#sudo apt-get install -y xfce4-session
 
-sudo apt-get -y install xrdp
+#sudo apt-get -y install xrdp
 
 # remove thinclient_drive
 sudo sed -i -e '/allow_channels=/ s/=.*/=false/' /etc/xrdp/xrdp.ini
@@ -27,11 +27,11 @@ echo xfce4-session >~/.xsession
 sudo service xrdp restart
 
 # C BUILD TOOLS
-sudo apt-get -y install make
-sudo apt-get -y install g++
+#sudo apt-get -y install make
+#sudo apt-get -y install g++
 
 # FIREFOX
-sudo apt-get install -y firefox
+#sudo apt-get install -y firefox
 
 # CMDSTAN
 cd $HOME
@@ -47,16 +47,16 @@ make examples/bernoulli/bernoulli
 # TEST STAN
 #examples/bernoulli/bernoulli sample data file=examples/bernoulli/bernoulli.data.json
 
-# R
+# R https://cran.r-project.org/bin/linux/ubuntu/
 sudo apt-get install -y --no-install-recommends software-properties-common dirmngr
 wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
 sudo apt-get install -y --no-install-recommends r-base
 
-# TIDYVERSE
-sudo apt-get -y install libssl-dev libcurl4-openssl-dev unixodbc-dev \
-libxml2-dev libmariadb-dev libfontconfig1-dev libharfbuzz-dev \
-libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+# # TIDYVERSE
+# sudo apt-get -y install libssl-dev libcurl4-openssl-dev unixodbc-dev \
+# libxml2-dev libmariadb-dev libfontconfig1-dev libharfbuzz-dev \
+# libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
 Rscript -e 'install.packages("tidyverse"); install.packages("gapminder")'
 
@@ -78,8 +78,8 @@ sudo gdebi -n $RSTUDIO_FILE
 # set debconf back to default
 # sudo dpkg-reconfigure debconf --frontend=dialog
 
-# upgrade packages
-sudo apt-get upgrade -y
-
-# RESTART SYSTEM
-sudo reboot
+# # upgrade packages
+# sudo apt-get upgrade -y
+# 
+# # RESTART SYSTEM
+# sudo reboot
