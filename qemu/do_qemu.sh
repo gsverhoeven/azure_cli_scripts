@@ -9,7 +9,7 @@ qemu-img info jammy-server-cloudimg-amd64.img
 qemu-img resize jammy-server-cloudimg-amd64.img 30G
 
 cp ../cloud_init_cfg.yaml user-data
-
+#cp user-data.demo user-data
 # serve user data
 gnome-terminal -- python3 -m http.server --directory .
 

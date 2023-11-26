@@ -2,7 +2,6 @@
 system_info:
   default_user:
     name: stanuser
-    home: /home/stanuser
 #     lock_passd: false
 #    ssh-authorized-keys:
 #      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTZw4TKc3uohUlQpCJ467m2mZvdQ8XyQ/B7sxxcB8krXRdw+r0AEB1MMHAndpafS5Ya33oO4fzSxgbAyYWxJ8qVpnNu2/qI0CByk41KR4D7teZOLheOPKBMW0OASFAZcFnGI6Rp9yqwip2g4Xvf8596mN+cx+L4dbd13Ex+6aDqP7gsT1tPkj/514pLl5CBkE+s/R/Ok8FOnANIIHYoLtYZna8OQsnvi6nFa5U0o5AxtACm/GsvmzEGi39c0uSLUsanK+4avGdFVNpGTgnjgvM1lFLSvyapIZCHcGm9f9Q7Qk5Mesip8qvhS8SQcV1Uh2cXziRz6zsB+fcqdUAr1zx
@@ -29,9 +28,9 @@ package_upgrade: false
 # package version will be installed.
 
 packages:
-  - net-tools
-  - inxi
-  - fail2ban
+#   - net-tools
+#   - inxi
+#   - fail2ban
   - xfce4
   - xfce4-session
   - xrdp
@@ -53,19 +52,18 @@ packages:
 
 
 write_files:
-  # not writing to /tmp
-  - path: /home/stanuser/post_install.sh
+  # this runs as root before users/ groups are created!
+  - path: /post_install.sh
     permissions: "0755"
     content: |
       #!/bin/bash
       sudo sed -i -e '/allow_channels=/ s/=.*/=false/' /etc/xrdp/xrdp.ini
-      sudo rmdir /home/stanuser/thinclient_drives
+      #sudo rmdir /home/stanuser/thinclient_drives
       sudo systemctl enable xrdp
       sudo adduser xrdp ssl-cert
       echo xfce4-session > /home/stanuser/.xsession
-      sudo chown stanuser:stanuser /home/stanuser/.xsession
-      sudo chown stanuser:stanuser /home/stanuser
       sudo service xrdp restart
       
 runcmd:
-  - [bash, /home/stanuser/post_install.sh ]
+  # this runs as root in the final stage
+  - [bash, /post_install.sh ]
