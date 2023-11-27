@@ -58,7 +58,7 @@ make examples/bernoulli/bernoulli
 # libxml2-dev libmariadb-dev libfontconfig1-dev libharfbuzz-dev \
 # libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
 
-Rscript -e 'install.packages("tidyverse"); install.packages("gapminder")'
+#Rscript -e 'install.packages("tidyverse"); install.packages("gapminder")'
 
 # RSTAN
 Rscript -e 'remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()'
