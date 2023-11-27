@@ -16,15 +16,15 @@
 #sudo apt-get install -y xfce4-session
 
 #sudo apt-get -y install xrdp
-
-# remove thinclient_drive
-sudo sed -i -e '/allow_channels=/ s/=.*/=false/' /etc/xrdp/xrdp.ini
-sudo rmdir $HOME/thinclient_drives
-
-sudo systemctl enable xrdp
-sudo adduser xrdp ssl-cert
-echo xfce4-session >~/.xsession
-sudo service xrdp restart
+# 
+# # remove thinclient_drive
+# sudo sed -i -e '/allow_channels=/ s/=.*/=false/' /etc/xrdp/xrdp.ini
+# sudo rmdir $HOME/thinclient_drives
+# 
+# sudo systemctl enable xrdp
+# sudo adduser xrdp ssl-cert
+# echo xfce4-session >~/.xsession
+# sudo service xrdp restart
 
 # C BUILD TOOLS
 #sudo apt-get -y install make
@@ -47,11 +47,11 @@ make examples/bernoulli/bernoulli
 # TEST STAN
 #examples/bernoulli/bernoulli sample data file=examples/bernoulli/bernoulli.data.json
 
-# R https://cran.r-project.org/bin/linux/ubuntu/
-sudo apt-get install -y --no-install-recommends software-properties-common dirmngr
-wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
-sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
-sudo apt-get install -y --no-install-recommends r-base
+# # R https://cran.r-project.org/bin/linux/ubuntu/
+# sudo apt-get install -y --no-install-recommends software-properties-common dirmngr
+# wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+# sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+# sudo apt-get install -y --no-install-recommends r-base
 
 # # TIDYVERSE
 # sudo apt-get -y install libssl-dev libcurl4-openssl-dev unixodbc-dev \

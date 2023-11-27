@@ -28,12 +28,12 @@ package_upgrade: false
 # package version will be installed.
 
 packages:
-#   - net-tools
-#   - inxi
+   - net-tools
+   - inxi
 #   - fail2ban
-  - xfce4
-  - xfce4-session
-  - xrdp
+  # - xfce4
+  # - xfce4-session
+  # - xrdp
   # - make
   # - g++
   # - firefox
@@ -63,7 +63,18 @@ write_files:
       sudo adduser xrdp ssl-cert
       echo xfce4-session > /home/stanuser/.xsession
       sudo service xrdp restart
+  - path: /install_r.sh
+    permissions: "0755"
+    content: |
+      #!/bin/bash
+      sudo apt-get install -y --no-install-recommends software-properties-common dirmngr
+      wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+      sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+      sudo apt-get install -y --no-install-recommends r-base
+      #sudo runuser -l stanuser -c "Rscript -e \"install.packages('tidyverse')\""
+      sudo runuser -l stanuser -c "Rscript -e \"install.packages('gapminder')\""
       
 runcmd:
   # this runs as root in the final stage
-  - [bash, /post_install.sh ]
+  #- [bash, /post_install.sh ]
+  - [bash, /install_r.sh ]
