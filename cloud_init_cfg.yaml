@@ -34,8 +34,8 @@ packages:
   # - xfce4
   # - xfce4-session
   # - xrdp
-  # - make
-  # - g++
+   - make
+   - g++
   # - firefox
   # - libssl-dev 
   # - libcurl4-openssl-dev 
@@ -71,8 +71,8 @@ write_files:
       wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
       sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
       sudo apt-get install -y --no-install-recommends r-base
-      #sudo runuser -l stanuser -c "Rscript -e \"install.packages('tidyverse')\""
-      sudo runuser -l stanuser -c "Rscript -e \"install.packages('gapminder')\""
+      #sudo Rscript -e "install.packages('tidyverse')"
+      sudo Rscript -e "install.packages('gapminder')"
       
 runcmd:
   # this runs as root in the final stage
