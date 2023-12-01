@@ -2,12 +2,11 @@
 system_info:
   default_user:
     name: stanuser
-#     lock_passd: false
-#    ssh-authorized-keys:
-#      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTZw4TKc3uohUlQpCJ467m2mZvdQ8XyQ/B7sxxcB8krXRdw+r0AEB1MMHAndpafS5Ya33oO4fzSxgbAyYWxJ8qVpnNu2/qI0CByk41KR4D7teZOLheOPKBMW0OASFAZcFnGI6Rp9yqwip2g4Xvf8596mN+cx+L4dbd13Ex+6aDqP7gsT1tPkj/514pLl5CBkE+s/R/Ok8FOnANIIHYoLtYZna8OQsnvi6nFa5U0o5AxtACm/GsvmzEGi39c0uSLUsanK+4avGdFVNpGTgnjgvM1lFLSvyapIZCHcGm9f9Q7Qk5Mesip8qvhS8SQcV1Uh2cXziRz6zsB+fcqdUAr1zx
 
+# does not work when directly under stanuser?    
 password: $6$rounds=4096$1EQ9n0RZP8LOJX$H/FxoaL904hbgAGTfvVqVcoiJzaCkVSoeRzIq1UXKMtw.Ofm8JPuvEIntx1pVBU6rwri1kT0Sk7I0Vduvlg6n1
 chpasswd: { expire: False }
+
 hostname: myjammy
 
 # configure sshd to disallow users logging in using password 
@@ -28,32 +27,32 @@ package_upgrade: false
 # package version will be installed.
 
 packages:
-   - net-tools
-   - inxi
-#   - fail2ban
-  # - xfce4
-  # - xfce4-session
-  # - xrdp
-   - make
-   - g++
-  # - firefox
-   - libssl-dev # rstudio dep
-   - libcurl4-openssl-dev 
-  # - unixodbc-dev
-  # - libxml2-dev 
-  # - libmariadb-dev 
-  # - libfontconfig1-dev 
-  # - libharfbuzz-dev
-  # - libfribidi-dev 
-  # - libfreetype6-dev 
-  # - libpng-dev 
-  # - libtiff5-dev 
-  # - libjpeg-dev
+  - net-tools
+  - inxi
+  - fail2ban
+  - xfce4
+  - xfce4-session
+  - xrdp
+  - make
+  - g++
+  - firefox
+  - libssl-dev # rstudio dep
+  - libcurl4-openssl-dev
+  - unixodbc-dev
+  - libxml2-dev
+  - libmariadb-dev
+  - libfontconfig1-dev
+  - libharfbuzz-dev
+  - libfribidi-dev
+  - libfreetype6-dev
+  - libpng-dev
+  - libtiff5-dev
+  - libjpeg-dev
 
 
 write_files:
   # this runs as root before users/ groups are created!
-  - path: /post_install.sh
+  - path: /install_xrdp.sh
     permissions: "0755"
     content: |
       #!/bin/bash
@@ -71,7 +70,7 @@ write_files:
       wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
       sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
       sudo apt-get install -y --no-install-recommends r-base
-      #sudo Rscript -e "install.packages('tidyverse')"
+      sudo Rscript -e "install.packages('tidyverse')"
       sudo Rscript -e "install.packages('gapminder')"
       sudo Rscript -e "remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()"
   - path: /install_rstudio.sh
@@ -90,6 +89,6 @@ write_files:
       
 runcmd:
   # this runs as root in the final stage
-  #- [bash, /post_install.sh ]
-  #- [bash, /install_r.sh ]
+  - [bash, /install_xrdp.sh ]
+  - [bash, /install_r.sh ]
   - [bash, /install_rstudio.sh ]
