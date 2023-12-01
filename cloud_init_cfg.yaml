@@ -37,8 +37,8 @@ packages:
    - make
    - g++
   # - firefox
-  # - libssl-dev 
-  # - libcurl4-openssl-dev 
+   - libssl-dev # rstudio dep
+   - libcurl4-openssl-dev 
   # - unixodbc-dev
   # - libxml2-dev 
   # - libmariadb-dev 
@@ -73,8 +73,23 @@ write_files:
       sudo apt-get install -y --no-install-recommends r-base
       #sudo Rscript -e "install.packages('tidyverse')"
       sudo Rscript -e "install.packages('gapminder')"
+      sudo Rscript -e "remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()"
+  - path: /install_rstudio.sh
+    permissions: "0755"
+    content: |
+      #!/bin/bash
+      cd $HOME
+      mkdir Downloads
+      cd Downloads
+      #RSTUDIO_FILE=rstudio-2023.09.1-494-amd64.deb
+      #wget -q https://download1.rstudio.org/electron/focal/amd64/$RSTUDIO_FILE
+      RSTUDIO_FILE=rstudio-2022.07.4-587-amd64.deb
+      wget -q https://s3.amazonaws.com/rstudio-ide-build/desktop/jammy/amd64/$RSTUDIO_FILE
+      sudo apt-get -y install gdebi-core 
+      sudo gdebi -n $RSTUDIO_FILE
       
 runcmd:
   # this runs as root in the final stage
   #- [bash, /post_install.sh ]
-  - [bash, /install_r.sh ]
+  #- [bash, /install_r.sh ]
+  - [bash, /install_rstudio.sh ]

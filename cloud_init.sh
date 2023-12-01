@@ -61,16 +61,16 @@ make examples/bernoulli/bernoulli
 #Rscript -e 'install.packages("tidyverse"); install.packages("gapminder")'
 
 # RSTAN
-Rscript -e 'remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()'
+#Rscript -e 'remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()'
 
 # RSTUDIO
-cd $HOME
-mkdir Downloads # PM chown to azureuser /azureuser
-cd Downloads
-RSTUDIO_FILE=rstudio-2023.09.1-494-amd64.deb
-wget -q https://download1.rstudio.org/electron/focal/amd64/$RSTUDIO_FILE
-sudo apt-get -y install gdebi-core 
-sudo gdebi -n $RSTUDIO_FILE
+# cd $HOME
+# mkdir Downloads # PM chown to azureuser /azureuser
+# cd Downloads
+# RSTUDIO_FILE=rstudio-2023.09.1-494-amd64.deb
+# wget -q https://download1.rstudio.org/electron/focal/amd64/$RSTUDIO_FILE
+# sudo apt-get -y install gdebi-core 
+# sudo gdebi -n $RSTUDIO_FILE
 
 # CLONE RSTAN scripts from github
 # PM how to authenticate
