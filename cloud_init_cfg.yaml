@@ -72,7 +72,9 @@ write_files:
       sudo apt-get install -y --no-install-recommends r-base
       sudo Rscript -e "install.packages('tidyverse')"
       sudo Rscript -e "install.packages('gapminder')"
-      sudo Rscript -e "remotes::install_github(standev/cmdstanr); cmdstanr::install_stan()"
+      sudo Rscript -e "install.packages('remotes')"
+      sudo Rscript -e "remotes::install_github('stan-dev/cmdstanr')"
+      sudo runuser -c -u stanuser "Rscript -e \"cmdstanr::install_cmdstan()\""
   - path: /install_rstudio.sh
     permissions: "0755"
     content: |
