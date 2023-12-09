@@ -4,14 +4,13 @@ system_info:
     name: stanuser
 
 # does not work when directly under stanuser?    
-password: $6$rounds=4096$1EQ9n0RZP8LOJX$H/FxoaL904hbgAGTfvVqVcoiJzaCkVSoeRzIq1UXKMtw.Ofm8JPuvEIntx1pVBU6rwri1kT0Sk7I0Vduvlg6n1
+password: XXXXX
 chpasswd: { expire: False }
 
-hostname: myjammy
+hostname: standev
 
 # configure sshd to disallow users logging in using password 
-# rather than just keys
-# local terminal login works if set false
+# (local terminal login works if set false)
 ssh_pwauth: false
 
 package_upgrade: false

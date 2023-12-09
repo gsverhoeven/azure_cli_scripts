@@ -83,6 +83,12 @@ az network nic create \
     --output $azOutput \
     --network-security-group $NetworkSecurityGroup
 
+echo "generate cloud-config with encrypted password .."
+read -sp 'Enter password for Cloud-config: ' SECRET
+HASHEDPW=$(mkpasswd $SECRET --method=SHA-512 --rounds=4096)
+cp $customDataScript $customDataScript.tmp
+sed -i -e "/password:/ s@:.*@: $HASHEDPW@" $customDataScript.tmp
+
 echo "creating VM .."
 az vm create \
   --resource-group $resourceGroup \
@@ -92,10 +98,12 @@ az vm create \
   --storage-sku $storagetype \
   --size $vmSize \
   --admin-username $AdminUsername \
-  --custom-data $customDataScript \
+  --custom-data $customDataScript.tmp \
   --generate-ssh-keys \
   --output $azOutput \
   --security-type Standard # no trusted launch
+
+rm $customDataScript.tmp
 
 echo "show all created resources within group .."
 az resource list --resource-group $resourceGroup \
