@@ -1,7 +1,9 @@
 #!/bin/bash
 #az login
 
+az config set core.collect_telemetry=no
 az config set core.display_region_identified=false
+
 source ./azure_config_ubuntu.sh
 
 echo "creating resource group .." $resourceGroup
