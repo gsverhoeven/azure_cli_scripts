@@ -51,6 +51,13 @@ packages:
 
 write_files:
   # this runs as root before users/ groups are created!
+  - path: /enable_fail2ban.sh
+    permissions: "0755"
+    content: |
+      #!/bin/bash
+      sudo cp jail.conf jail.local
+      sudo systemctl enable fail2ban
+      sudo systemctl start fail2ban
   - path: /install_xrdp.sh
     permissions: "0755"
     content: |
@@ -88,6 +95,7 @@ write_files:
       
 runcmd:
   # this runs as root in the final stage
+  - [bash, /enable_fail2ban.sh ]
   - [bash, /install_xrdp.sh ]
   - [bash, /install_r.sh ]
   - [bash, /install_rstudio.sh ]

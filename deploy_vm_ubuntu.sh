@@ -120,6 +120,3 @@ echo "ssh $AdminUsername@$mypublicdns.$location.cloudapp.azure.com"
 
 echo "to check on status cloud-init:"
 echo "cat /var/log/cloud-init-output.log"
-
-
-#sudo passwd azureuser # PM set this to pwd from keepass, figure out a secure way, needed for RDP access
