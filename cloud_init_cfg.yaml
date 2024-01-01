@@ -13,7 +13,7 @@ hostname: standev
 # (local terminal login works if set false)
 ssh_pwauth: false
 
-package_upgrade: false
+package_upgrade: true
 
 # Install additional packages on first boot
 #
