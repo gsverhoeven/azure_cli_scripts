@@ -3,3 +3,4 @@ cloud-init-output.log
 qemu/jammy-server-cloudimg-amd64.img
 qemu/jammy-server-cloudimg-amd64.img.fresh
 qemu/user-data
+*.png
