@@ -89,6 +89,12 @@ HASHEDPW=$(mkpasswd $SECRET --method=SHA-512 --rounds=4096)
 cp $customDataScript $customDataScript.tmp
 sed -i -e "/password:/ s@:.*@: $HASHEDPW@" $customDataScript.tmp
 
+echo "allow Standard security.."
+
+az feature register --name UseStandardSecurityType --namespace Microsoft.Compute
+az feature show --name UseStandardSecurityType --namespace Microsoft.Compute
+#az provider register -n Microsoft.Compute
+
 echo "creating VM .."
 az vm create \
   --resource-group $resourceGroup \
